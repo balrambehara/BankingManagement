@@ -1,0 +1,30 @@
+CREATE TABLE  "NEWACCOUNT" 
+   (	"ACCOUNTNO" NUMBER, 
+	"USERNAME" VARCHAR2(4000), 
+	"PASSWORD" VARCHAR2(4000), 
+	"REPASSWORD" VARCHAR2(4000), 
+	"AMOUNT" NUMBER, 
+	"ADDRESS" VARCHAR2(4000), 
+	"PHONE" NUMBER, 
+	 CONSTRAINT "NEWACCOUNT_PK" PRIMARY KEY ("ACCOUNTNO") ENABLE
+   )
+/
+
+CREATE SEQUENCE NEWACCOUNT_SEQ;
+
+CREATE OR REPLACE TRIGGER  "BI_NEWACCOUNT" 
+  before insert on "NEWACCOUNT"               
+  for each row  
+begin   
+    select "NEWACCOUNT_SEQ".nextval into :NEW.ACCOUNTNO from dual; 
+end; 
+
+/
+ALTER TRIGGER  "BI_NEWACCOUNT" ENABLE
+/
+ALTER TABLE newaccount ADD CHECK (amount>=0); 
+------------------------------------
+--admin details
+
+create table bank_user(user_id number(5) primary key,username varchar2(20),password varchar2(20));
+insert into bank_user values(101,'admin123', 'admin123');
